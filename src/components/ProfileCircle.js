@@ -34,9 +34,10 @@ const ProfileImage = styled.img`
 `;
 
 const ProfileInitial = styled.span`
-  font-size: 24px;
+  font-size: ${props => props.length > 1 ? '18px' : '24px'};
   color: #666;
   font-weight: bold;
+  letter-spacing: ${props => props.length > 1 ? '-1px' : 'normal'};
 `;
 
 const ProfileName = styled.div`
@@ -66,7 +67,12 @@ const ProfileCircle = ({ name, image, color, x, y }) => {
         {image ? (
           <ProfileImage src={image} alt={name} />
         ) : (
-          <ProfileInitial style={{ color: color ? '#fff' : '#666' }}>{name[0]}</ProfileInitial>
+          <ProfileInitial
+            style={{ color: color ? '#fff' : '#666' }}
+            length={name.slice(0, 2).length}
+          >
+            {name.slice(0, 2)}
+          </ProfileInitial>
         )}
       </Circle>
       <ProfileName>{name}</ProfileName>
