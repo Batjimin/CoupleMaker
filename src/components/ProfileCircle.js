@@ -18,8 +18,8 @@ const Circle = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #f0f0f0;
-  border: 2px solid #e0e0e0;
+  background-color: ${props => props.color || '#f0f0f0'};
+  border: 2px solid ${props => props.color ? props.color : '#e0e0e0'};
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -59,14 +59,14 @@ const ProfileName = styled.div`
   }
 `;
 
-const ProfileCircle = ({ name, image, x, y }) => {
+const ProfileCircle = ({ name, image, color, x, y }) => {
   return (
     <CircleContainer x={x} y={y}>
-      <Circle>
+      <Circle color={color}>
         {image ? (
           <ProfileImage src={image} alt={name} />
         ) : (
-          <ProfileInitial>{name[0]}</ProfileInitial>
+          <ProfileInitial style={{ color: color ? '#fff' : '#666' }}>{name[0]}</ProfileInitial>
         )}
       </Circle>
       <ProfileName>{name}</ProfileName>

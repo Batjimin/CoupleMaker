@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CircleLayout from './components/CircleLayout';
+import SidePanel from './components/SidePanel';
 
 const AppContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 300px);
   height: 100vh;
   background-color: #ffffff;
 `;
@@ -15,30 +16,29 @@ const Node = {
 };
 
 function App() {
-  const [nodes, setNodes] = useState([
-    { id: 1, name: 'User 1' },
-    { id: 2, name: 'User 2' },
-    { id: 3, name: 'User 3' },
-    { id: 4, name: 'User 4' },
-  ]);
+  const [nodes, setNodes] = useState([]);
 
-  const handleAddNode = () => {
+  const handleAddNode = (nodeData) => {
     const newId = nodes.length + 1;
     const newNode = {
       id: newId,
-      name: `User ${newId}`,
+      name: nodeData.name,
+      color: nodeData.color,
+      image: nodeData.image,
     };
     setNodes([...nodes, newNode]);
   };
 
   return (
-    <AppContainer>
-      <CircleLayout
-        nodes={nodes}
-        radius={200}
-        onAddNode={handleAddNode}
-      />
-    </AppContainer>
+    <>
+      <AppContainer>
+        <CircleLayout
+          nodes={nodes}
+          radius={200}
+        />
+      </AppContainer>
+      <SidePanel onAdd={handleAddNode} nodes={nodes} />
+    </>
   );
 }
 
