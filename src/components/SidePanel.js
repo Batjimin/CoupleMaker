@@ -168,13 +168,42 @@ const ProfileItem = styled.div`
   padding: 0.5rem;
   border-radius: 4px;
   transition: background-color 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &:hover {
     background-color: #f5f5f5;
   }
 `;
 
-const SidePanel = ({ onAdd, nodes }) => {
+const DeleteProfileButton = styled.button`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s;
+  opacity: 0;
+  
+  ${ProfileItem}:hover & {
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: #ff4444;
+    color: white;
+  }
+`;
+
+const SidePanel = ({ onAdd, onDelete, nodes }) => {
   const [name, setName] = useState('');
   const [color, setColor] = useState(getRandomColor());
   const [imageUrl, setImageUrl] = useState('');
@@ -301,6 +330,7 @@ const SidePanel = ({ onAdd, nodes }) => {
         {nodes.map(node => (
           <ProfileItem key={node.id}>
             <span style={{ color: node.color }}>{node.name}</span>
+            <DeleteProfileButton onClick={() => onDelete(node.id)}>×</DeleteProfileButton>
           </ProfileItem>
         ))}
       </ProfileList>

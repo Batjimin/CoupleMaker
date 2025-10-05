@@ -29,6 +29,10 @@ function App() {
     setNodes([...nodes, newNode]);
   };
 
+  const handleDeleteNode = (id) => {
+    setNodes(nodes.filter(node => node.id !== id));
+  };
+
   return (
     <>
       <AppContainer>
@@ -37,7 +41,7 @@ function App() {
           radius={200}
         />
       </AppContainer>
-      <SidePanel onAdd={handleAddNode} nodes={nodes} />
+      <SidePanel onAdd={handleAddNode} onDelete={handleDeleteNode} nodes={nodes} />
     </>
   );
 }
